@@ -1,0 +1,21 @@
+ <% if(page==1){%>
+        <button type="button" disabled><<</button>
+        <button type="button" disabled><</button>
+        <button type="button"><a href="/attendance?page=<%=page+1%>&month=<%=month%>">></a></button>
+        <button type="button"><a href="/attendance?page=<%=totalPages%>&month=<%=month%>">>></a></button>
+        <%}else if(page==totalPages){%>
+    
+        <button type="button"><a href="/attendance?page=1&month=<%=month%>"><<</a></button>
+        <button type="button"><a href="/attendance?page=<%=page-1%>&month=<%=month%>"><</a></button>
+        <button type="button" disabled>></button>
+        <button type="button" disabled>>></button>
+    
+        <%}else{%>
+            <button type="button"><a href="/attendance?page=1&month=<%=month%>"><<</a></button>
+           <button type="button"><a href="/attendance?page=<%=page-1%>&month=<%=month%>"><</a></button>
+           <button type="button"><a href="/attendance?page=<%=page+1%>&month=<%=month%>">></a></button>
+           <button type="button"><a href="/attendance?page=<%=totalPages%>&month=<%=month%>">>></a></button>
+    
+        <%}
+        
+        %>
