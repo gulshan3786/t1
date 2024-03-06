@@ -1,0 +1,66 @@
+<!-- index.ejs -->
+
+<html>
+<head>
+  <title>Dynamic Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+  
+  </style>
+</head>
+<body>
+  <h1>Dynamic table</h1>
+  <table>
+    <thead>
+      <tr>
+        <% for(let column of columns){ %>
+          <th><%= column %></th>
+        <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let row of rows){ %>
+        <tr>
+          <% for(let value of Object.values(row)){ %>
+            <th><%= value %></th>
+          <% } %>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <center> <% if (currentPage == 1) { %>
+    <button disabled><a href="/attendance/1"><<</a></button>
+    <button disabled><a href="/attendance/<%= currentPage - 1 %>"><</a></button>
+<% } else { %>
+    <button><a href="/attendance/1"><<</a></button>
+    <button><a href="/attendance/<%= currentPage - 1 %>"><</a></button>
+<% } %>
+
+<p><%= currentPage %></p>
+
+<% if (currentPage === totalPages) { %>
+    <button disabled><a href="/attendance/<%= currentPage + 1 %>">></a></button>
+    <button disabled><a href="/attendance/<%= totalPages %>">>></a></button>
+<% } else { %>
+    <button><a href="/attendance/<%= currentPage + 1 %>">></a></button>
+    <button><a href="/attendance/<%= totalPages %>">>></a></button>
+<% } %></center>
+
+ 
+
+</body>
+</html>

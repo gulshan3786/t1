@@ -1,0 +1,155 @@
+<!-- index.ejs -->
+
+<html>
+<head>
+  <title>Dynamic Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content select {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            border: none;
+            background: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content select:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+  
+  </style>
+  <script>
+    // Function to generate the order link
+    function getOrderLink(column, direction) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('order', column);
+      url.searchParams.set('dir', direction);
+      return url.href;
+    }
+  </script>
+</head>
+<body>
+  <h1>Dynamic table</h1>
+  <table>
+    <thead>
+      <tr>
+        <% for(let column of columns){ %>
+          <th>
+            <a href="?page=<%= page %>&month=<%= month %>&order=<%= column %>&dir=asc">&#9650;</a>
+            <%= column %>
+            <a href="?page=<%= page %>&month=<%= month %>&order=<%= column %>&dir=desc">&#9660;</a>
+          </th>
+        <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let row of rows){ %>
+        <tr>
+          <% for(let value of Object.values(row)){ %>
+            <th><%= value %></th>
+          <% } %>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <center>
+    <% if (page == 1) { %>
+      <button type="button" disabled><<</button>
+      <button type="button" disabled><</button>
+      <button type="button"><a href="?page=<%= page + 1 %>&month=<%= month %>&order=<%= order %>&dir=<%= dir %>">></a></button>
+      <button type="button"><a href="?page=<%= totalPages %>&month=<%= month %>&order=<%= order %>&dir=<%= dir %>">>></a></button>
+  <% } else if (page == totalPages) { %>
+      <button type="button"><a href="?page=1&month=<%= month %>&order=<%= order %>&dir=<%= dir %>"><<</a></button>
+      <button type="button"><a href="?page=<%= page - 1 %>&month=<%= month %>&order=<%= order %>&dir=<%= dir %>"><</a></button>
+      <button type="button" disabled>></button>
+      <button type="button" disabled>>></button>
+  <% } else { %>
+      <button type="button"><a href="?page=1&month=<%= month %>&order=<%= order %>&dir=<%= dir %>"><<</a></button>
+      <button type="button"><a href="?page=<%= page - 1 %>&month=<%= month %>&order=<%= order %>&dir=<%= dir %>"><</a></button>
+      <button type="button"><a href="?page=<%= page + 1 %>&month=<%= month %>&order=<%= order %>&dir=<%= dir %>">></a></button>
+      <button type="button"><a href="?page=<%= totalPages %>&month=<%= month %>&order=<%= order %>&dir=<%= dir %>">>></a></button>
+  <% } %>
+  
+  </center>
+  
+    
+  <center>
+    <div class="dropdown">
+      <select id="monthDropdown" onchange="navigateToMonth()">
+        <option disabled selected>Select Month</option>
+        <option value="1" <% if(month == 1) { %>selected<% } %>>January</option>
+        <option value="2" <% if(month == 2) { %>selected<% } %>>February</option>
+        <option value="12" <% if(month == 12) { %>selected<% } %>>December</option>
+        <!-- Add entries for each month -->
+      </select>
+    </div>
+  </center>
+  
+  <script>
+     
+    // Function to navigate to the selected month
+    function navigateToMonth() {
+      var selectedOption = document.getElementById("monthDropdown");
+      var selectedValue = selectedOption.value;
+      location = `/attendance?page=<%=page%>&month=${selectedValue}`;
+    }
+
+ 
+ 
+
+    // Function to navigate to the selected month
+    function navigateToMonth() {
+      var selectedOption = document.getElementById("monthDropdown");
+      var selectedValue = selectedOption.value;
+      location = `/attendance?page=<%=page%>&month=${selectedValue}`;
+    }
+       // Function to generate order link
+    
+ 
+  </script>
+  
+    
+    
+  
+  
+ 
+
+</body>
+</html>
